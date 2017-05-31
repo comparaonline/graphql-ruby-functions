@@ -1,7 +1,8 @@
-require "graphql/functions/version"
+require 'graphql/functions/version'
+require 'graphql/functions/single_record'
+require 'graphql/functions/multiple_record'
 
-module Graphql
+module GraphQL
   module Functions
-    # Your code goes here...
   end
 end

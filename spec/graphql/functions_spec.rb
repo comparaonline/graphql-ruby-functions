@@ -1,8 +1,8 @@
 require "spec_helper"
 
-RSpec.describe Graphql::Functions do
+RSpec.describe GraphQL::Functions do
   it "has a version number" do
-    expect(Graphql::Functions::VERSION).not_to be nil
+    expect(GraphQL::Functions::VERSION).not_to be nil
   end
 
   it "does something useful" do
