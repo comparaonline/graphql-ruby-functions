@@ -5,7 +5,7 @@ require "graphql/functions/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "graphql-functions"
-  spec.version       = Graphql::Functions::VERSION
+  spec.version       = GraphQL::Functions::VERSION
   spec.authors       = ["Joaquín Moreira", "Daniel Ortega"]
   spec.email         = ["jmoreira@comparaonline.com", "dortega@comparaonline.com"]
 
@@ -35,5 +35,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
 
   spec.add_dependency "activerecord", "~> 5.1"
-  spec.add_dependency "graphql", "~> 1.6"
+  spec.add_dependency "graphql", "~> 1.5"
 end
