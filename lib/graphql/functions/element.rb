@@ -2,7 +2,7 @@ require_relative 'base'
 
 module GraphQL
   module Functions
-    class SingleRecord < Base
+    class Element < Base
       argument :id, !types.ID
 
       def call(_, args, _)

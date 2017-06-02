@@ -1,6 +1,6 @@
 require 'graphql/functions/version'
-require 'graphql/functions/single_record'
-require 'graphql/functions/multiple_record'
+require 'graphql/functions/element'
+require 'graphql/functions/array'
 
 module GraphQL
   module Functions

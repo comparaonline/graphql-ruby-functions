@@ -2,7 +2,7 @@ require_relative 'base'
 
 module GraphQL
   module Functions
-    class MultipleRecord < Base
+    class Array < Base
       argument :ids, types[types.ID]
       argument :limit, types.Int
       argument :offset, types.Int
