@@ -1,5 +1,6 @@
-require "bundler/setup"
-require "graphql/functions"
+require 'bundler/setup'
+require 'graphql/functions'
+require_relative 'support/active_record_mock'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
