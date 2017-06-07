@@ -11,3 +11,4 @@
 # rspec failure tracking
 .rspec_status
 .byebug_history
+.rubocop-https---raw-githubusercontent-com-comparaonline-ruby-lint-master-rubocop-yml
