@@ -7,7 +7,7 @@ module GraphQL
       class << self
         def create
           fail_on_model_not_set unless @model
-          self.new(@model)
+          new(@model)
         end
 
         def model(model)
@@ -18,14 +18,16 @@ module GraphQL
         private
 
         def fail_on_model_not_set
-          fail ArgumentError.new(
-            %q('model' not set. Forgot to add 'model ::ModelClass' ?)
+          raise(
+            ArgumentError,
+            "'model' not set. Forgot to add 'model ::ModelClass' ?"
           )
         end
 
         def fail_on_wrong_class_model
-          fail ArgumentError.new(
-            %q('model' superclass mismatch. It must be 'ActiveRecord::Base')
+          raise(
+            ArgumentError,
+            "'model' superclass mismatch. It must be 'ActiveRecord::Base'"
           )
         end
       end

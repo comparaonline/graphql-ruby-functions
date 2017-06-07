@@ -8,11 +8,12 @@ RSpec.describe GraphQL::Functions::Array do
 
   before(:example) do
     ActiveRecordMock.setup
-    stub_const("Mock", Class.new(ActiveRecord::Base))
-    stub_const("Function",
-    Class.new(GraphQL::Functions::Array) { model Mock }
+    stub_const('Mock', Class.new(ActiveRecord::Base))
+    stub_const('Types::MockType', Class.new)
+    stub_const(
+      'Function',
+      Class.new(GraphQL::Functions::Array) { model Mock }
     )
-    stub_const("Types::MockType", Class.new)
   end
 
   after(:context) { ActiveRecordMock.teardown }
@@ -52,7 +53,7 @@ RSpec.describe GraphQL::Functions::Array do
 
   context '#type' do
     it 'return the proper type' do
-      expect(Function.create.type_class).to eq("Types::MockType".constantize)
+      expect(Function.create.type_class).to eq('Types::MockType'.constantize)
     end
   end
 end

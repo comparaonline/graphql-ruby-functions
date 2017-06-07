@@ -7,7 +7,7 @@ module GraphQL
       argument :limit, types.Int
       argument :offset, types.Int
 
-      def call(obj, args, ctx)
+      def call(_, args, _)
         query = args[:ids] ? @model_class.where(id: args[:ids]) : @model_class.all
         query = query.offset(args[:offset]) if args[:offset]
         query = query.limit(args[:limit]) if args[:limit]

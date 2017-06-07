@@ -3,11 +3,12 @@ require 'spec_helper'
 RSpec.describe GraphQL::Functions::Element do
   before(:example) do
     ActiveRecordMock.setup
-    stub_const("Mock", Class.new(ActiveRecord::Base))
-    stub_const("Function",
+    stub_const('Mock', Class.new(ActiveRecord::Base))
+    stub_const('Types::MockType', Class.new)
+    stub_const(
+      'Function',
       Class.new(GraphQL::Functions::Element) { model Mock }
     )
-    stub_const("Types::MockType", Class.new)
   end
 
   after(:context) { ActiveRecordMock.teardown }
@@ -21,7 +22,7 @@ RSpec.describe GraphQL::Functions::Element do
 
   context '#type' do
     it 'return the proper type' do
-      expect(Function.create.type).to eq("Types::MockType".constantize)
+      expect(Function.create.type).to eq('Types::MockType'.constantize)
     end
   end
 end
