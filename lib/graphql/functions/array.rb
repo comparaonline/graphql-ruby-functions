@@ -15,7 +15,11 @@ module GraphQL
       end
 
       def type
-        @type ||= self.class.types[!"Types::#{@model_class}Type".constantize]
+        @type ||= self.class.types[!type_class]
+      end
+
+      def type_class
+        "Types::#{@model_class}Type".constantize
       end
     end
   end
