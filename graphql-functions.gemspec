@@ -13,6 +13,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Write a longer description or delete this line.}
   spec.homepage      = "https://github.com/comparaonline/graphql-ruby-functions"
   spec.license       = "MIT"
+  spec.required_ruby_version = '>= 2.2'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -30,9 +31,11 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.15"
+  spec.add_development_dependency "bundler", "~> 1.14"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "sqlite3", "~> 1.3"
+  spec.add_development_dependency "byebug"
 
   spec.add_dependency "activerecord", "~> 5.1"
   spec.add_dependency "graphql", "~> 1.5"
