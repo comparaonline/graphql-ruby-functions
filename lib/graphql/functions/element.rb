@@ -6,7 +6,7 @@ module GraphQL
       argument :id, !types.ID
 
       def call(_, args, _)
-        return @model_class.find(args[:id])
+        @model_class.find(args[:id])
       end
 
       def type
