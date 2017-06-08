@@ -1,8 +1,38 @@
-# Graphql::Functions
+# graphql-functions
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/graphql/functions`. To experiment with that code, run `bin/console` for an interactive prompt.
+Ruby gem made to simplify the standard query creation of the [graphql](http://graphql-ruby.org) gem in your `Active Record` models with predefined **functions**.
 
-TODO: Delete this and the text above, and describe your gem
+Using the provided functions your graphql **types** will gain standard and generic **query arguments** to limit the amount of rows, use an offset, or filter by an specific id among others; supporting queries like the following:
+
+```graphql
+{
+  people(limit: 2) {
+    id,
+    first_name
+  }  
+}
+```
+
+```graphql
+{
+  people(ids: [1, 4, 9]) {
+    id,
+    age
+  }
+}
+```
+
+```graphql
+{
+  person(id: 3) {
+    id,
+    last_name
+  }
+}
+```
+
+The full list of features is shown [here](#features).
+
 
 ## Installation
 
@@ -13,16 +43,107 @@ gem 'graphql-functions'
 ```
 
 And then execute:
-
-    $ bundle
+```
+$ bundle
+```
 
 Or install it yourself as:
+```
+$ gem install graphql-functions
+```
 
-    $ gem install graphql-functions
+Please note that you should also have installed the base [graphql](http://graphql-ruby.org) gem.
 
 ## Usage
 
-TODO: Write usage instructions here
+First of all you have to honor the following files structure convention:
+
+```
+app\
+--controllers\
+--models\
+----person.rb
+--graphql\
+----types\
+------query_type.rb
+------person_type.rb
+----mutations\
+----functions\
+------person.rb
+------people.rb
+----schema.rb
+```
+
+To help getting started is useful to use the `graphql` [generator](http://graphql-ruby.org/schema/generators#graphqlinstall).
+
+Then you should use one of the two provided functions to the `query type` definition:
+
+```ruby
+# app/graphql/types/query_type.rb
+module Types
+  QueryType = GraphQL::ObjectType.define do
+    name "Query"
+
+    field :person, function: GraphQL::Functions::Element
+    field :people, function: GraphQL::Functions::Array
+  end
+end
+```
+
+If more specific logic is needed you may create a custom class with an inheritance from `GraphQL::Functions::Element` or `GraphQL::Functions::Array` like:
+
+```ruby
+# app/graphql/functions/people.rb
+module Functions
+  class People < GraphQL::Functions::Array
+    model ::Person
+    argument :country_code, types.String
+
+    def call(obj, args, ctx)
+      query = super(obj, args, ctx)
+      query.where(country_code: args[:countryCode]) if args[:countryCode]
+      query
+    end
+  end
+end
+```
+
+```ruby
+# app/graphql/types/query_type.rb
+module Types
+  QueryType = GraphQL::ObjectType.define do
+    name "Query"
+
+    field :person, function: GraphQL::Functions::Element
+    field :people, function: Functions::People
+  end
+end
+```
+
+Above changes will in addition to the base query capabilities from `graphql-functions` allow the query to filter by countryCode like:
+
+```
+{
+  query(countryCode: 'us', limit: 2, offset: 5) {
+    id,
+    first_name,
+    last_name
+  }
+}
+```
+
+## Features
+
+### Element
+Element function is intended to be used with a query with a single field output like `person` in the example: The only available argument is id:
+- `id: Int`. Filter by the specified id.
+
+### Array
+Array function add filters-like arguments to the query:
+- `offset: Int`). Skip the specified argument of records.
+- `limit: Int`). Do not return more rows than the argument.
+- `ìds: [Int]`). Filter by the specified ids.
+
 
 ## Development
 
