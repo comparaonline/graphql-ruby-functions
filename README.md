@@ -1,5 +1,8 @@
 # graphql-functions
 
+[![Gem Version](https://badge.fury.io/rb/graphql-functions.svg)](https://badge.fury.io/rb/graphql-functions)
+[![CircleCI](https://circleci.com/gh/comparaonline/graphql-ruby-functions.svg?style=svg)](https://circleci.com/gh/comparaonline/graphql-ruby-functions)
+
 Ruby gem made to simplify the standard query creation of the [graphql](http://graphql-ruby.org) gem in your `Active Record` models with predefined **functions**.
 
 Using the provided functions your graphql **types** will gain standard and generic **query arguments** to limit the amount of rows, use an offset, or filter by an specific id among others; supporting queries like the following:
