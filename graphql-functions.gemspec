@@ -1,7 +1,7 @@
 # coding: utf-8
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "graphql/functions/version"
+require 'graphql/functions/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "graphql-functions"
@@ -9,20 +9,12 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Joaquín Moreira", "Daniel Ortega"]
   spec.email         = ["jmoreira@comparaonline.com", "dortega@comparaonline.com"]
 
-  spec.summary       = %q{Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{Write a longer description or delete this line.}
+  spec.summary       = %q{Collection of GraphQL functions to give basic active record like support for graphql queries}
+  spec.description   = %q{GraphQL functions made to simplify the standard query creation of the graphql gem in your Active Record models.
+    Using the provided functions your graphql types will gain standard and generic query arguments to limit the amount of rows, use an offset, or filter by an specific id among others.}
   spec.homepage      = "https://github.com/comparaonline/graphql-ruby-functions"
   spec.license       = "MIT"
   spec.required_ruby_version = '>= 2.2'
-
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
-  end
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
