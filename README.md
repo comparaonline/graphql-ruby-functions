@@ -79,21 +79,7 @@ app\
 
 To help getting started is useful to use the `graphql` [generator](http://graphql-ruby.org/schema/generators#graphqlinstall).
 
-Then you should use one of the two provided functions to the `query type` definition:
-
-```ruby
-# app/graphql/types/query_type.rb
-module Types
-  QueryType = GraphQL::ObjectType.define do
-    name "Query"
-
-    field :person, function: GraphQL::Functions::Element
-    field :people, function: GraphQL::Functions::Array
-  end
-end
-```
-
-If more specific logic is needed you may create a custom class with an inheritance from `GraphQL::Functions::Element` or `GraphQL::Functions::Array` like:
+Then you should create a class inside the functions folder subclassing of the two provided functions to the `query type` definition:
 
 ```ruby
 # app/graphql/functions/people.rb
@@ -112,22 +98,32 @@ end
 ```
 
 ```ruby
+# app/graphql/functions/person.rb
+
+module Functions
+  class Person < GraphQL::Functions::Element
+    model ::Person
+  end
+end
+```
+
+```ruby
 # app/graphql/types/query_type.rb
 module Types
   QueryType = GraphQL::ObjectType.define do
     name "Query"
 
-    field :person, function: GraphQL::Functions::Element
+    field :person, function: Functions::Person
     field :people, function: Functions::People
   end
 end
 ```
 
-Above changes will in addition to the base query capabilities from `graphql-functions` allow the query to filter by countryCode like:
+Above changes will in addition to the base query capabilities from `graphql-functions` allow the query to filter by `countryCode` in the `people` field like:
 
 ```
 {
-  query(countryCode: 'us', limit: 2, offset: 5) {
+  people(countryCode: 'us', limit: 2, offset: 5) {
     id,
     first_name,
     last_name
