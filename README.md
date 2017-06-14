@@ -89,9 +89,9 @@ module Functions
     argument :country_code, types.String
 
     def call(obj, args, ctx)
-      query = super(obj, args, ctx)
-      query.where(country_code: args[:countryCode]) if args[:countryCode]
-      query
+      query(obj, args, ctx) do |relation|
+        relation.where(country_code: args[:countryCode]) if args[:countryCode]
+      end
     end
   end
 end
