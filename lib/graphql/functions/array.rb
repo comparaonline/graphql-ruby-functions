@@ -14,6 +14,12 @@ module GraphQL
         query
       end
 
+      def query(*args)
+        relation = call(*args)
+        filtered_relation = yield(relation) if block_given?
+        filtered_relation || relation
+      end
+
       def type
         @type ||= self.class.types[!type_class]
       end
