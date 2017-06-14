@@ -121,7 +121,7 @@ end
 
 Above changes will in addition to the base query capabilities from `graphql-functions` allow the query to filter by `countryCode` in the `people` field like:
 
-```
+```graphql
 {
   people(countryCode: 'us', limit: 2, offset: 5) {
     id,
@@ -135,13 +135,13 @@ Above changes will in addition to the base query capabilities from `graphql-func
 
 ### Element
 Element function is intended to be used with a query with a single field output like `person` in the example: The only available argument is id:
-- `id: Int`. Filter by the specified id.
+- `id: Int` Filter by the specified id.
 
 ### Array
 Array function add filters-like arguments to the query:
-- `offset: Int`). Skip the specified argument of records.
-- `limit: Int`). Do not return more rows than the argument.
-- `ìds: [Int]`). Filter by the specified ids.
+- `offset: Int` Skip the specified argument of records.
+- `limit: Int` Do not return more rows than the argument.
+- `ids: [Int]` Filter by the specified ids.
 
 
 ## Development
