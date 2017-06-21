@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe GraphQL::Functions::Array do
   def create(quantity)
     quantity.times { Mock.create }
-    yield(Mock) if block_given?
+    (yield(Mock) if block_given?) || Mock
   end
 
   before(:example) do
@@ -18,7 +18,16 @@ RSpec.describe GraphQL::Functions::Array do
 
   after(:context) { ActiveRecordMock.teardown }
 
-  context '#call' do
+  let(:default_args) do
+    GraphQL::Query::Arguments.new({}, argument_definitions: {})
+  end
+
+  describe '#call' do
+    it 'return all elements when no args are specified' do
+      elements = create(5, &:all)
+      expect(Function.create.call(nil, default_args, nil)).to eq(elements)
+    end
+
     it "'ids' return the elements targeted" do
       elements = create(5) { |m| m.take(3) }
       ids = elements.map(&:id)
@@ -51,20 +60,24 @@ RSpec.describe GraphQL::Functions::Array do
     end
   end
 
-  context '#query' do
-    it 'do the same as call when no block given' do
-      elements = create(5) { |m| m.take(3) }
-      ids = elements.map(&:id)
-
-      expect(Function.create.query(nil, { ids: ids }, nil)).to eq(elements)
+  context '#query method on the subclass' do
+    @order_clause = { id: :desc }
+    before(:example) do
+      stub_const(
+        'Function',
+        Class.new(GraphQL::Functions::Array) do
+          model Mock
+          def query(relation, *_)
+            relation.order(@order_clause)
+          end
+        end
+      )
     end
 
-    it 'filters the returned relation through the given block' do
-      elements = create(5) { |m| m.take(3) }
-      ids = elements.map(&:id)
-
+    it 'filters the returned relation' do
+      elements = create(5) { |m| m.order(@order_clause) }
       expect(
-        Function.create.query(nil, {}, nil) { |r| r.where(id: ids) }
+        Function.create.call(nil, default_args, nil)
       ).to eq(elements)
     end
   end
