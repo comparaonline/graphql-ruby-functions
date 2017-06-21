@@ -82,7 +82,7 @@ RSpec.describe GraphQL::Functions::Array do
     end
   end
 
-  context '#type' do
+  describe '#type' do
     it 'return the proper type' do
       expect(Function.create.type_class).to eq('Types::MockType'.constantize)
     end

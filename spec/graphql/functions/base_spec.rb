@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe GraphQL::Functions::Base do
-  context '#model' do
+  describe '#model' do
     it 'fails when the argument is not an ActiveRecord object' do
       stub_const('A', Class.new)
       expect do
@@ -10,7 +10,7 @@ RSpec.describe GraphQL::Functions::Base do
     end
   end
 
-  context '#create' do
+  describe '#create' do
     it 'fails when model is not set' do
       expect { described_class.create }.to raise_error(ArgumentError)
     end
