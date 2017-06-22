@@ -13,14 +13,14 @@ RSpec.describe GraphQL::Functions::Element do
 
   after(:context) { ActiveRecordMock.teardown }
 
-  context '#call' do
+  describe '#call' do
     it 'return the proper element' do
       mock = Mock.create
       expect(Function.create.call(nil, { id: mock.id }, nil)).to eq(mock)
     end
   end
 
-  context '#type' do
+  describe '#type' do
     it 'return the proper type' do
       expect(Function.create.type).to eq('Types::MockType'.constantize)
     end

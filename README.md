@@ -88,10 +88,10 @@ module Functions
     model ::Person
     argument :country_code, types.String
 
-    def call(obj, args, ctx)
-      query(obj, args, ctx) do |relation|
-        relation.where(country_code: args[:countryCode]) if args[:countryCode]
-      end
+    # optional custom logic code.
+    # 'relation' represent the data filtered by the built-in array arguments (limit, offset, etc)
+    def query(relation, obj, args, ctx)
+      relation.where(country_code: args[:countryCode]) if args[:countryCode]
     end
   end
 end

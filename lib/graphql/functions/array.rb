@@ -7,17 +7,16 @@ module GraphQL
       argument :limit, types.Int
       argument :offset, types.Int
 
-      def call(_, args, _)
-        query = args[:ids] ? @model_class.where(id: args[:ids]) : @model_class.all
-        query = query.offset(args[:offset]) if args[:offset]
-        query = query.limit(args[:limit]) if args[:limit]
-        query
-      end
+      def call(*attrs)
+        _, args, = attrs
+        ids_filter = { id: args[:ids] } if args[:ids]
+        relation = @model_class
+          .all
+          .where(ids_filter)
+          .offset(args[:offset])
+          .limit(args[:limit])
 
-      def query(*args)
-        relation = call(*args)
-        filtered_relation = yield(relation) if block_given?
-        filtered_relation || relation
+        (query(relation, *attrs) if respond_to?(:query)) || relation
       end
 
       def type
