@@ -9,9 +9,10 @@ module GraphQL
 
       def call(*attrs)
         _, args, = attrs
+        ids_filter = { id: args[:ids] } if args[:ids]
         relation = @model_class
           .all
-          .where(args[:ids] ? { id: args[:ids] } : nil)
+          .where(ids_filter)
           .offset(args[:offset])
           .limit(args[:limit])
 
