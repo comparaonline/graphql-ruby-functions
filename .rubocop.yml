@@ -1,5 +1,5 @@
 inherit_from:
-    - https://raw.githubusercontent.com/comparaonline/ruby-lint/master/rubocop.yml
+  - https://raw.githubusercontent.com/comparaonline/ruby-lint/master/rubocop.yml
 
 AllCops:
   Exclude:
@@ -7,4 +7,4 @@ AllCops:
     - 'bin/**/*'
 
 Metrics/LineLength:
-  Max: 100
+  Max: 80
