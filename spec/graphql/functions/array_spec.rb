@@ -61,21 +61,20 @@ RSpec.describe GraphQL::Functions::Array do
   end
 
   context '#query method on the subclass' do
-    @order_clause = { id: :desc }
     before(:example) do
       stub_const(
         'Function',
         Class.new(GraphQL::Functions::Array) do
           model Mock
           def query(relation, *_)
-            relation.order(@order_clause)
+            relation.order(id: :desc)
           end
         end
       )
     end
 
     it 'filters the returned relation' do
-      elements = create(5) { |m| m.order(@order_clause) }
+      elements = create(5) { |m| m.order(id: :desc) }
       expect(
         Function.create.call(nil, default_args, nil)
       ).to eq(elements)
