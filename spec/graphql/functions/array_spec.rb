@@ -58,6 +58,20 @@ RSpec.describe GraphQL::Functions::Array do
         Function.create.call(nil, { offset: offset, limit: limit }, nil)
       ).to eq(elements)
     end
+
+    it "'order_by' return the elements sorted asc by param" do
+      elements = create(5) { |m| m.order(:id) }
+      expect(
+        Function.create.call(nil, { order_by: 'id' }, nil)
+      ).to eq(elements)
+    end
+
+    it "'desc' return the elements sorted desc" do
+      elements = create(5) { |m| m.order(id: :desc) }
+      expect(
+        Function.create.call(nil, { order_by: 'id', desc: true }, nil)
+      ).to eq(elements)
+    end
   end
 
   context '#query method on the subclass' do
