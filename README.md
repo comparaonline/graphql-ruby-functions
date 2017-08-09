@@ -142,6 +142,8 @@ Array function add filters-like arguments to the query:
 - `offset: Int` Skip the specified argument of records.
 - `limit: Int` Do not return more rows than the argument.
 - `ids: [Int]` Filter by the specified ids.
+- `order_by: String` Order by the specified argument.
+- `desc: Boolean` Flag to order descending.
 
 
 ## Development
