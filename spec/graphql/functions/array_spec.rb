@@ -72,26 +72,20 @@ RSpec.describe GraphQL::Functions::Array do
         Function.create.call(nil, { order_by: 'id', desc: true }, nil)
       ).to eq(elements)
     end
-  end
 
-  context '#query method on the subclass' do
-    before(:example) do
-      stub_const(
-        'Function',
-        Class.new(GraphQL::Functions::Array) do
-          model Mock
+    context 'when #query method is implemented on the subclass' do
+      it 'filters the returned relation' do
+        Function.class_eval do
           def query(relation, *_)
             relation.order(id: :desc)
           end
         end
-      )
-    end
 
-    it 'filters the returned relation' do
-      elements = create(5) { |m| m.order(id: :desc) }
-      expect(
-        Function.create.call(nil, default_args, nil)
-      ).to eq(elements)
+        elements = create(5) { |m| m.order(id: :desc) }
+        expect(
+          Function.create.call(nil, default_args, nil)
+        ).to eq(elements)
+      end
     end
   end
 
