@@ -113,8 +113,8 @@ module Types
   QueryType = GraphQL::ObjectType.define do
     name "Query"
 
-    field :person, function: Functions::Person
-    field :people, function: Functions::People
+    field :person, function: Functions::Person.create
+    field :people, function: Functions::People.create
   end
 end
 ```
@@ -136,6 +136,8 @@ Above changes will in addition to the base query capabilities from `graphql-func
 ### Element
 Element function is intended to be used with a query with a single field output like `person` in the example: The only available argument is id:
 - `id: Int` Filter by the specified id.
+
+If `id` is not specified or if the subclass implements its own `query` method which does not return a single element, the first element of the model is returned.
 
 ### Array
 Array function add filters-like arguments to the query:
