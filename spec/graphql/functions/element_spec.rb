@@ -18,14 +18,14 @@ RSpec.describe GraphQL::Functions::Element do
   end
 
   describe '#call' do
-    context 'when id arg is passed' do
+    context 'when id arg is present' do
       it 'return the proper element' do
         mock = Mock.create
         expect(Function.create.call(nil, { id: mock.id }, nil)).to eq(mock)
       end
     end
 
-    context 'when id arg is not passed' do
+    context 'when id arg is not present' do
       context 'and #query method is not implemented in subclass' do
         it 'returns the first element' do
           Mock.create
