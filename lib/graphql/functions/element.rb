@@ -3,7 +3,7 @@ require_relative 'base'
 module GraphQL
   module Functions
     class Element < Base
-      argument :id, !types.ID
+      argument :id, types.ID
 
       def call(*attrs)
         _, args, = attrs
