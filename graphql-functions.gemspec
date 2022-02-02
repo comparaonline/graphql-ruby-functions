@@ -30,5 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "byebug"
 
   spec.add_dependency "activerecord", "~> 6.1"
-  spec.add_dependency "graphql", "~> 1.5"
+  spec.add_dependency "graphql", "~> 1.10.4"
 end
